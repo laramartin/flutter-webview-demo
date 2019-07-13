@@ -11,7 +11,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Resources to learn Flutter',
       theme: ThemeData(
-        primarySwatch: Colors.amber,
+        brightness: Brightness.dark,
+        primaryColorDark: Color(0xffef9a9a),
+        primaryColor: Color(0xffffcdd2),
+        accentColor: Colors.pink[100],
+        textTheme: Typography.blackMountainView
       ),
       home: Scaffold(
         appBar: AppBar(
