@@ -49,12 +49,22 @@ class WebViewScreen extends StatelessWidget {
       body: Container(
         child: WebView(
           initialUrl: resourceItem.url,
+          javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (WebViewController webViewController) {
             _controller = webViewController;
           },
           gestureRecognizers: Set()
             ..add(Factory<VerticalDragGestureRecognizer>(
                 () => VerticalDragGestureRecognizer())),
+          navigationDelegate: (request) {
+            bool isHost = request.url.startsWith(resourceItem.url);
+            if (isHost)
+              return NavigationDecision.navigate;
+            else {
+              print("Not allowed navigation to: ${request.url}");
+              return NavigationDecision.prevent;
+            }
+          },
         ),
       ),
     );
