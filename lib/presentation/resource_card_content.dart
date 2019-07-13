@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:resources_to_learn_flutter/data/resource_item.dart';
 import 'package:resources_to_learn_flutter/webview_screen.dart';
@@ -19,25 +21,45 @@ class ResourceCardContent extends StatelessWidget {
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
-        InkWell(
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => WebViewScreen(resourceItem: item)),
-          ),
-          child: Container(
-            height: 200.0,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: WebView(
-                initialUrl: item.url,
-                javascriptMode: JavascriptMode.unrestricted,
-                onPageFinished: (url) => print("finished loading: $url"),
-              ),
+        Container(
+          height: 200.0,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Stack(
+              children: <Widget>[
+
+                WebView(
+                  initialUrl: item.url,
+                  javascriptMode: JavascriptMode.unrestricted,
+                  onPageFinished: (url) => print("finished loading: $url"),
+                  gestureRecognizers: Set()
+                    ..add(Factory<VerticalDragGestureRecognizer>(
+                        () => VerticalDragGestureRecognizer())),
+                ),
+                InkWell(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            WebViewScreen(resourceItem: item)),
+                  ),
+                  child: Container(
+                    height: 200,
+                  ),
+                ),
+              ],
             ),
           ),
-        )
+        ),
       ],
     );
   }
 }
+
+//InkWell(
+//          onTap: () => Navigator.push(
+//            context,
+//            MaterialPageRoute(
+//                builder: (context) => WebViewScreen(resourceItem: item)),
+//          ),
+//          child:
