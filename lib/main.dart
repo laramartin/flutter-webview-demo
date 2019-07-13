@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resources_to_learn_flutter/data/resource_item.dart';
+import 'package:resources_to_learn_flutter/webview_screen.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 void main() => runApp(MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         primaryColorDark: Color(0xffef9a9a),
         primaryColor: Color(0xffffcdd2),
         accentColor: Colors.pink[100],
-        textTheme: Typography.blackMountainView
+        textTheme: Typography.blackMountainView,
       ),
       home: Scaffold(
         appBar: AppBar(
@@ -71,20 +72,24 @@ class ResourceCardContent extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Text(
             item.title,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold
-            ),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
-        Container(
-          height: 200.0,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: WebView(
-              initialUrl: item.url,
-              javascriptMode: JavascriptMode.unrestricted,
-              onPageFinished: (url) => print("finished loading: $url"),
+        InkWell(
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => WebViewScreen(resourceItem: item)),
+          ),
+          child: Container(
+            height: 200.0,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: WebView(
+                initialUrl: item.url,
+                javascriptMode: JavascriptMode.unrestricted,
+                onPageFinished: (url) => print("finished loading: $url"),
+              ),
             ),
           ),
         )
