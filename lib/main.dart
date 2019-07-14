@@ -3,9 +3,9 @@ import 'package:resources_to_learn_flutter/data/resource_item.dart';
 
 import 'package:resources_to_learn_flutter/presentation/resource_list_item.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(ResourcesToLearnFlutterApp());
 
-class MyApp extends StatelessWidget {
+class ResourcesToLearnFlutterApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final resourceItems = resourcesList;
